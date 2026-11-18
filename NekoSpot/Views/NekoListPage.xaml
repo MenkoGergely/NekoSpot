@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NekoSpot.NekoListPage"
+             xmlns:local="clr-namespace:NekoSpot"
+             Loaded="ContentPage_Loaded"
+             Title="Neko List">
+
+    <Grid RowDefinitions="*,Auto,Auto" Padding="15" RowSpacing="12">
+
+       
+        <CollectionView MaximumWidthRequest="500" ItemsSource="{Binding Cats}" SelectedItem="{Binding SelectedCat}" SelectionMode="Single">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Spacing="6" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="No cats spotted yet" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="Tap Add to record your first sighting." FontSize="13" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+            
+            <CollectionView.ItemTemplate>
+                <DataTemplate  x:DataType="local:Cat">
+                    <Grid Padding="1">
+                        
+                        <Border StrokeThickness="1" Stroke="LightGray" BackgroundColor="White" Padding="10" StrokeShape="RoundRectangle 10">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                                <Border StrokeShape="RoundRectangle 8" BackgroundColor="#F5F5F5" StrokeThickness="0" Grid.Column="0" WidthRequest="75" HeightRequest="75">
+                                    <Grid>
+                                        <Label Text="🐱" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Image Source="{Binding ImageURL}" Aspect="AspectFill"/>
+                                    </Grid>
+                                </Border>
+                                <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"/>
+                                    <Label Text="{Binding Color}" />
+                                    <Label Text="{Binding SeenDate, StringFormat='Seen: {0:yyyy.MM.dd}'}" FontSize="12"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        <Grid MaximumWidthRequest="500" Grid.Row="1" ColumnDefinitions="*,*,*"  ColumnSpacing="10">
+            <Button Grid.Column="0" CornerRadius="8" Text="Add" Command="{Binding AddCatCommand}"/>
+            <Button  Grid.Column="1" CornerRadius="8" Text="Edit" Command="{Binding EditSelectedCatCommand}"/>
+            <Button Grid.Column="2" CornerRadius="8" Text="Delete" Command="{Binding DeleteCatCommand}"/>
+        </Grid>
+        <Grid MaximumWidthRequest="500" Grid.Row="2" ColumnDefinitions="*,*"  ColumnSpacing="10">
+            <Button Grid.Column="0" CornerRadius="8" Text="Details" Command="{Binding ShowCatDetailsCommand}"/>
+            <Button Grid.Column="1" CornerRadius="8" Text="Map" Command="{Binding ShowMapCommand}"/>
+        </Grid>
+
+    </Grid>
+    
+
+</ContentPage>

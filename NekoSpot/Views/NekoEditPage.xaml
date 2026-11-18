@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NekoSpot.NekoEditPage"
+             Title="Neko Edit">
+    
+    <Grid RowDefinitions="*,Auto" Padding="20" RowSpacing="15">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="15" MaximumWidthRequest="500">
+                <Border HeightRequest="260" WidthRequest="260" StrokeShape="RoundRectangle 12"
+                        StrokeThickness="1"  HorizontalOptions="Center">
+                    <Grid>
+                        <Label Text="🐱" FontSize="72" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image Source="{Binding Draft.ImageURL}" Aspect="AspectFill"/>
+                    </Grid>
+                </Border>
+       
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="12" MaximumWidthRequest="500">
+                    <Button   Grid.Column="0" Text="Choose Image" Command="{Binding OpenImageCommand}" />
+                    <Button  Grid.Column="1" Text="Take photo" Command="{Binding TakePhotoCommand}" />
+                </Grid>
+                
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Name" FontSize="13" />
+                    <Entry FontSize="16" Text="{Binding Draft.Name}"/>
+                </VerticalStackLayout>
+                
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Color" FontSize="13"/>
+                    <Entry FontSize="16" Text="{Binding Draft.Color}"/>
+                </VerticalStackLayout>
+                
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Seen Date" FontSize="13" />
+                    <DatePicker FontSize="16" Date="{Binding Draft.SeenDate}" Format="yyyy.MM.dd"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Description" FontSize="13" />
+                    <Editor HeightRequest="150" Text="{Binding Draft.Description}" AutoSize="TextChanges" FontSize="13" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Location" FontSize="13" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Entry Grid.Column="0" Placeholder="Latitude" Text="{Binding Draft.Latitude}"/>
+                        <Entry Grid.Column="1" Placeholder="Longitude" Text="{Binding Draft.Longitude}"/>
+                    </Grid>
+                    <Button Text="Current Location" Command="{Binding GetLocationCommand}" CornerRadius="8"/>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="12" MaximumWidthRequest="500">
+            <Button Grid.Column="0" Text="Cancel" Command="{Binding CancelEditCommand}"/>
+            <Button Grid.Column="1" Text="Save" Command="{Binding SaveEditCommand}"/>
+        </Grid>
+        
+    </Grid>
+
+</ContentPage>
